@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Input from "./input";
 import { FormContext } from "./formContext";
 function StepOne() {
-  const { handleChange, nextStep, step } = useContext(FormContext);
+  const { handleChange, nextStep, step, backStep } = useContext(FormContext);
   return (
     <div className="w-[480px] h-[655px] bg-white p-8 flex flex-col justify-between rounded-lg">
       <div className="flex flex-col gap-7">
@@ -16,17 +16,23 @@ function StepOne() {
           </p>
         </div>
         <div className="flex flex-col gap-3">
-          <Input label="First name" onChange={handleChange("firstname")} />
-          <Input label="Last name" onChange={handleChange("lastname")} />
-          <Input label="Username" onChange={handleChange("username")} />
+          <Input label="Date of birth" onChange={handleChange("dateofbirth")} />
         </div>
       </div>
-      <button
-        onClick={nextStep}
-        className="w-full h-[44px] bg-[#121316] rounded-[8px]"
-      >
-        <p className="text-[#FFFFFF]">Continue {step}/3</p>
-      </button>
+      <div className="flex gap-2">
+        <button
+          className="w-[128px] h-[44px] rounded-[8px] border"
+          onClick={backStep}
+        >
+          <p>Back</p>
+        </button>
+        <button
+          onClick={nextStep}
+          className="w-[280px] h-[44px] bg-[#121316] rounded-[8px]"
+        >
+          <p className="text-[#FFFFFF]">Continue {step}/3</p>
+        </button>
+      </div>
     </div>
   );
 }
