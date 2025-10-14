@@ -5,7 +5,7 @@ function StepOne() {
   const { handleChange, backStep, nextStep, step, error, handleVal, formData } =
     useContext(FormContext);
   return (
-    <div className="w-[480px] h-[655px] bg-white p-8 flex flex-col justify-between rounded-lg">
+    <div className="w-[480px] h-auto bg-white p-8 flex flex-col justify-between rounded-lg">
       <div className="flex flex-col gap-7">
         <div className="flex flex-col gap-2">
           <div className="bg-[url(./assets/Logo.svg)] w-[60px] h-[60px]"></div>
@@ -17,19 +17,43 @@ function StepOne() {
           </p>
         </div>
         <div className="flex flex-col gap-3">
-          <Input label="Email" onChange={handleChange("email")} />
+          <Input
+            label="Email"
+            onChange={handleChange("email")}
+            value={formData.email}
+          />
           <div className="text-[#E14942] font-[Inter] text-[14px] font-normal tracking-[-0.28px] leading-[20px]">
             {error.email}
           </div>
-          <Input label="Phone number" onChange={handleChange("phone")} />
+          <Input
+            label="Phone number"
+            onChange={handleChange("phone")}
+            value={formData.phone}
+          />
           <div className="text-[#E14942] font-[Inter] text-[14px] font-normal tracking-[-0.28px] leading-[20px]">
             {error.phone}
           </div>
-          <Input label="Password" />
-          <Input label="Confirm password" />
+          <Input
+            label="Password"
+            onChange={handleChange("pass")}
+            value={formData.pass}
+            type="password"
+          />
+          <div className="text-[#E14942] font-[Inter] text-[14px] font-normal tracking-[-0.28px] leading-[20px]">
+            {error.pass}
+          </div>
+          <Input
+            label="Confirm password"
+            onChange={handleChange("confirmPass")}
+            value={formData.confirmPass}
+            type="password"
+          />
+          <div className="text-[#E14942] font-[Inter] text-[14px] font-normal tracking-[-0.28px] leading-[20px]">
+            {error.confirmPass}
+          </div>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 pt-[24px]">
         <button
           className="w-[128px] h-[44px] rounded-[8px] border"
           onClick={backStep}
@@ -39,8 +63,6 @@ function StepOne() {
         <button
           onClick={() => {
             const validationResponse = handleVal();
-            console.log(validationResponse);
-
             if (validationResponse) {
               nextStep();
             }

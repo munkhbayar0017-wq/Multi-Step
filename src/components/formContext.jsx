@@ -7,37 +7,46 @@ export const FormProvide = ({ children }) => {
   const [step, setStep] = useState(1);
   const nextStep = () => setStep(step + 1);
   const backStep = () => setStep(step - 1);
-  const [errorCount, setErrorCount] = useState(0);
+  //   const [errorCount, setErrorCount] = useState(0);
   const [error, setError] = useState({});
   const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const validPhone = /^[89]\d{7}$/;
+  const validPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+  //   const validName = /^[A-Za-zА-Яа-яӨөҮүЁё]+$/;
 
   const handleVal = () => {
-    console.log(!validEmail.test(formData.email));
+    let newErrors = {};
+    let errorCount = 0;
+
     if (!validEmail.test(formData.email)) {
-      setError((prev) => ({
-        ...prev,
-        email: "Please provide a valid email address.",
-      }));
+      newErrors.email = "Please provide a valid email address.";
     } else {
-      setError({ ...error, email: "" });
-      setErrorCount(errorCount + 1);
+      errorCount++;
     }
+
     if (!validPhone.test(formData.phone)) {
-      setError((prev) => ({
-        ...prev,
-        phone: "Please enter a valid phone number.",
-      }));
+      newErrors.phone = "Please enter a valid phone number.";
     } else {
-      setError({ ...error, phone: "" });
-      setErrorCount(errorCount + 1);
+      errorCount++;
     }
-    if (errorCount === 2) {
-      return true;
+
+    if (!validPass.test(formData.pass)) {
+      newErrors.pass = "Password must include letters and numbers.";
     } else {
-      return false;
+      errorCount++;
     }
+
+    if (formData.pass !== formData.confirmPass) {
+      newErrors.confirmPass = "Passwords do not match. Please try again.";
+    } else {
+      errorCount++;
+    }
+
+    setError(newErrors);
+
+    return errorCount === 4;
   };
+
   const handleChange = (input) => (e) => {
     setFormData({ ...formData, [input]: e.target.value });
   };
@@ -53,6 +62,7 @@ export const FormProvide = ({ children }) => {
         backStep,
         error,
         handleVal,
+        setError,
       }}
     >
       {children}
