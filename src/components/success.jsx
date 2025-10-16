@@ -1,7 +1,4 @@
-import { useContext } from "react";
-import { FormContext } from "./formContext";
 function StepOne() {
-  const { handleChange, nextStep, step } = useContext(FormContext);
   return (
     <div className="w-[480px] h-[193px] bg-white p-8 flex flex-col justify-between rounded-lg">
       <div className="flex flex-col gap-7">

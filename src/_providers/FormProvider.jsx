@@ -1,18 +1,15 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
+import { FormContext } from "./FormContext";
 
-export const FormContext = createContext();
-
-export const FormProvide = ({ children }) => {
+export const FormProvider = ({ children }) => {
   const [formData, setFormData] = useState({});
   const [step, setStep] = useState(1);
   const nextStep = () => setStep(step + 1);
   const backStep = () => setStep(step - 1);
-  //   const [errorCount, setErrorCount] = useState(0);
   const [error, setError] = useState({});
   const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const validPhone = /^[89]\d{7}$/;
   const validPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-  //   const validName = /^[A-Za-zА-Яа-яӨөҮүЁё]+$/;
 
   const handleVal = () => {
     let newErrors = {};

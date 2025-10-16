@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import Input from "./input";
-import { FormContext } from "./formContext";
-function StepOne() {
+import { FormContext } from "../_providers/FormContext";
+import SvgComponent from "../icons/ContinueIcon";
+import BackIcon from "../icons/BackIcon";
+function StepTwo() {
   const { handleChange, backStep, nextStep, step, error, handleVal, formData } =
     useContext(FormContext);
   return (
@@ -21,6 +23,11 @@ function StepOne() {
             label="Email"
             onChange={handleChange("email")}
             value={formData.email}
+            className={`${
+              error.email
+                ? "border-[#E14942] text-[#E14942]"
+                : "border-[#CBD5E1] text-[#121316]"
+            }`}
           />
           <div className="text-[#E14942] font-[Inter] text-[14px] font-normal tracking-[-0.28px] leading-[20px]">
             {error.email}
@@ -29,6 +36,11 @@ function StepOne() {
             label="Phone number"
             onChange={handleChange("phone")}
             value={formData.phone}
+            className={`${
+              error.phone
+                ? "border-[#E14942] text-[#E14942]"
+                : "border-[#CBD5E1] text-[#121316]"
+            }`}
           />
           <div className="text-[#E14942] font-[Inter] text-[14px] font-normal tracking-[-0.28px] leading-[20px]">
             {error.phone}
@@ -37,6 +49,11 @@ function StepOne() {
             label="Password"
             onChange={handleChange("pass")}
             value={formData.pass}
+            className={`${
+              error.pass
+                ? "border-[#E14942] text-[#E14942]"
+                : "border-[#CBD5E1] text-[#121316]"
+            }`}
             type="password"
           />
           <div className="text-[#E14942] font-[Inter] text-[14px] font-normal tracking-[-0.28px] leading-[20px]">
@@ -46,6 +63,11 @@ function StepOne() {
             label="Confirm password"
             onChange={handleChange("confirmPass")}
             value={formData.confirmPass}
+            className={`${
+              error.confirmPass
+                ? "border-[#E14942] text-[#E14942]"
+                : "border-[#CBD5E1] text-[#121316]"
+            }`}
             type="password"
           />
           <div className="text-[#E14942] font-[Inter] text-[14px] font-normal tracking-[-0.28px] leading-[20px]">
@@ -55,9 +77,10 @@ function StepOne() {
       </div>
       <div className="flex gap-2 pt-[24px]">
         <button
-          className="w-[128px] h-[44px] rounded-[8px] border"
+          className="w-[128px] h-[44px] rounded-[8px] border flex items-center justify-center gap-1 cursor-pointer  hover:bg-gray-50 transition-colors  duration-300"
           onClick={backStep}
         >
+          <BackIcon />
           <p>Back</p>
         </button>
         <button
@@ -67,12 +90,13 @@ function StepOne() {
               nextStep();
             }
           }}
-          className="w-[280px] h-[44px] bg-[#121316] rounded-[8px]"
+          className="w-[280px] h-[44px] bg-[#121316] rounded-[8px] flex items-center justify-center gap-1 cursor-pointer  hover:bg-[#2A2B2F] transition-colors  duration-300"
         >
           <p className="text-[#FFFFFF]">Continue {step}/3</p>
+          <SvgComponent />
         </button>
       </div>
     </div>
   );
 }
-export default StepOne;
+export default StepTwo;

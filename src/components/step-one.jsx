@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import Input from "./input";
-import { FormContext } from "./formContext";
+import { FormContext } from "../_providers/FormContext";
+import SvgComponent from "../icons/ContinueIcon";
 const validName = /^[A-Za-zА-Яа-яӨөҮүЁё]+$/;
 function StepOne() {
   const { handleChange, nextStep, step, formData, setError, error } =
@@ -42,6 +43,11 @@ function StepOne() {
             label="First name"
             onChange={handleChange("firstname")}
             value={formData.firstname}
+            className={`${
+              error.firstname
+                ? "border-[#E14942] text-[#E14942]"
+                : "border-[#CBD5E1] text-[#121316]"
+            }`}
           />
           <div className="text-[#E14942] font-[Inter] text-[14px] font-normal tracking-[-0.28px] leading-[20px]">
             {error.firstname}
@@ -51,6 +57,11 @@ function StepOne() {
             label="Last name"
             onChange={handleChange("lastname")}
             value={formData.lastname}
+            className={`${
+              error.lastname
+                ? "border-[#E14942] text-[#E14942]"
+                : "border-[#CBD5E1] text-[#121316]"
+            }`}
           />
           <div className="text-[#E14942] font-[Inter] text-[14px] font-normal tracking-[-0.28px] leading-[20px]">
             {error.lastname}
@@ -59,6 +70,11 @@ function StepOne() {
             label="Username"
             onChange={handleChange("username")}
             value={formData.username}
+            className={`${
+              error.username
+                ? "border-[#E14942] text-[#E14942]"
+                : "border-[#CBD5E1] text-[#121316]"
+            }`}
           />
           <div className="text-[#E14942] font-[Inter] text-[14px] font-normal tracking-[-0.28px] leading-[20px]">
             {error.username}
@@ -72,9 +88,10 @@ function StepOne() {
             nextStep();
           }
         }}
-        className="w-full h-[44px] bg-[#121316] rounded-[8px]"
+        className="w-full h-[44px] bg-[#121316] rounded-[8px] flex items-center justify-center gap-1 cursor-pointer hover:bg-[#2A2B2F] transition-colors  duration-300"
       >
         <p className="text-[#FFFFFF]">Continue {step}/3</p>
+        <SvgComponent />
       </button>
     </div>
   );
