@@ -1,12 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FormContext } from "./FormContext";
 
 export const FormProvider = ({ children }) => {
-  const [formData, setFormData] = useState({});
-  const [step, setStep] = useState(1);
-  const nextStep = () => setStep(step + 1);
-  const backStep = () => setStep(step - 1);
+  const [step, setStep] = useState(() => {
+    const savedStep = localStorage.getItem("currentStep");
+    return savedStep ? Number(savedStep) : 1;
+  });
+
+  const [formData, setFormData] = useState(() => {
+    const savedData = localStorage.getItem("formData");
+    return savedData ? JSON.parse(savedData) : {};
+  });
+
   const [error, setError] = useState({});
+  useEffect(() => {
+    localStorage.setItem("currentStep", step);
+  }, [step]);
+
+  useEffect(() => {
+    localStorage.setItem("formData", JSON.stringify(formData));
+  }, [formData]);
+
+  const nextStep = () => setStep((prev) => prev + 1);
+  const backStep = () => setStep((prev) => prev - 1);
+
   const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const validPhone = /^[89]\d{7}$/;
   const validPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
